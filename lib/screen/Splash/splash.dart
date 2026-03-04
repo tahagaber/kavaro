@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,68 +24,47 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo
             Container(
-              padding: const EdgeInsets.all(24),
+              width: 60,
+              height: 60,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.08),
+                color: const Color(0xFFc9a86c),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white.withOpacity(0.15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFFC025F4).withOpacity(0.3),
-                    blurRadius: 60,
-                    spreadRadius: 10,
-                  ),
-                ],
               ),
-              child: const Icon(
-                Icons.eco_rounded,
-                size: 64,
-                color: Color(0xFFC025F4),
-              ),
+              child: const Icon(Icons.eco, color: Colors.white, size: 35),
             ),
-
-            const SizedBox(height: 40),
-
-            // Title
-            Text(
+            const SizedBox(height: 15),
+            const Text(
               'KAVARO',
-              style: GoogleFonts.spaceGrotesk(
-                fontSize: 48,
+              style: TextStyle(
+                fontSize: 36,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 4,
-                color: const Color(0xFFf5e6c8),
-                shadows: [
-                  Shadow(
-                    color: const Color(0xFFC025F4).withOpacity(0.5),
-                    blurRadius: 20,
-                  ),
-                ],
+                color: Color(0xFFf5e6c8),
+                letterSpacing: 3,
               ),
             ),
-
-            const SizedBox(height: 12),
-
-            // Subtitle
-            Text(
+            Container(
+              width: 140,
+              height: 2,
+              margin: const EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    Color(0xFF00d4aa),
+                    Colors.transparent,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
               'ELEVATE YOUR REALITY',
-              style: GoogleFonts.spaceGrotesk(
-                fontSize: 12,
-                letterSpacing: 6,
-                color: const Color(0xFFC025F4).withOpacity(0.6),
-              ),
-            ),
-
-            const SizedBox(height: 80),
-
-            // Loading
-            SizedBox(
-              width: 100,
-              child: LinearProgressIndicator(
-                backgroundColor: Colors.white.withOpacity(0.1),
-                valueColor: const AlwaysStoppedAnimation(Color(0xFFC025F4)),
-                minHeight: 2,
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.grey,
+                letterSpacing: 2,
               ),
             ),
           ],
