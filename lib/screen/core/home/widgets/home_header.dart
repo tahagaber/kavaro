@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kavaro/screen/core/home/widgets/home_constants.dart';
+import 'package:kavaro/models/market_model.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -10,23 +10,28 @@ class HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFF8B5CF6), width: 2),
-            ),
-            child: ClipOval(
-              child: Image.asset(
-                kAvatarUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  color: const Color(0xFF2D1B69),
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 28,
+          GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFF8B5CF6), width: 2),
+              ),
+              child: ClipOval(
+                child: Image.asset(
+                  MarketModel.avatarUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    color: const Color(0xFF2D1B69),
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
                 ),
               ),

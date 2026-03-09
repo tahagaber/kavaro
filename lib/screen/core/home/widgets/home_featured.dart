@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../product/product_detail_screen.dart';
 
 class HomeFeaturedSection extends StatelessWidget {
   final List<Map<String, dynamic>> featuredProjects;
@@ -42,7 +43,7 @@ class HomeFeaturedSection extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               final p = featuredProjects[index];
-              return _buildProjectCard(p);
+              return _buildProjectCard(context, p);
             },
           ),
         ),
@@ -50,100 +51,111 @@ class HomeFeaturedSection extends StatelessWidget {
     );
   }
 
-  Widget _buildProjectCard(Map<String, dynamic> p) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF13101E),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF2D2540), width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                  child: SizedBox.expand(
-                    child: Image.asset(
-                      p['image'],
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(
-                        color: const Color(0xFF1A1527),
-                        child: const Icon(
-                          Icons.view_in_ar_rounded,
-                          color: Color(0xFF8B5CF6),
-                          size: 40,
+  Widget _buildProjectCard(BuildContext context, Map<String, dynamic> p) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: p),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF13101E),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF2D2540), width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                    child: SizedBox.expand(
+                      child: Hero(
+                        tag: 'product-${p['name']}-${p['image']}',
+                        child: Image.asset(
+                          p['image'],
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(
+                            color: const Color(0xFF1A1527),
+                            child: const Icon(
+                              Icons.view_in_ar_rounded,
+                              color: Color(0xFF8B5CF6),
+                              size: 40,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: Colors.black45,
-                      shape: BoxShape.circle,
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Colors.black45,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 17,
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.favorite_border,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    p['name'],
+                    style: const TextStyle(
                       color: Colors.white,
-                      size: 17,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  p['name'],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        p['views'],
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontSize: 11,
+                        ),
+                      ),
+                      Text(
+                        p['price'],
+                        style: const TextStyle(
+                          color: Color(0xFF8B5CF6),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      p['views'],
-                      style: const TextStyle(
-                        color: Colors.white54,
-                        fontSize: 11,
-                      ),
-                    ),
-                    Text(
-                      p['price'],
-                      style: TextStyle(
-                        color: p['isFree']
-                            ? const Color(0xFF8B5CF6)
-                            : const Color(0xFF8B5CF6),
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
