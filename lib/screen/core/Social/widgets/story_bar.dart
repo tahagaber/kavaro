@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../../constats/app_colors.dart';
-import '../models/social_models.dart';
+import '../../../../models/social.dart';
 import 'story_item.dart';
 
 class StoryBar extends StatelessWidget {
   final List<StoryUser> stories;
+  final Color primaryColor;
 
-  const StoryBar({super.key, required this.stories});
+  const StoryBar({
+    super.key,
+    required this.stories,
+    required this.primaryColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +30,12 @@ class StoryBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: AppColors.textSecondary.withOpacity(0.4),
+                      color: const Color(0xFF64748B).withOpacity(0.4),
                       width: 2,
                     ),
                   ),
                   child: const Center(
-                    child: Icon(
-                      Icons.add,
-                      color: AppColors.textSecondary,
-                      size: 28,
-                    ),
+                    child: Icon(Icons.add, color: Color(0xFF64748B), size: 28),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -43,7 +43,7 @@ class StoryBar extends StatelessWidget {
                   'Your Story',
                   style: TextStyle(
                     fontSize: 11,
-                    color: AppColors.textSecondary,
+                    color: Color(0xFF94A3B8),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -53,7 +53,7 @@ class StoryBar extends StatelessWidget {
           ...stories.map(
             (story) => Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: StoryItem(story: story),
+              child: StoryItem(story: story, primaryColor: primaryColor),
             ),
           ),
         ],

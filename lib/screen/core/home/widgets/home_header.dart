@@ -61,24 +61,29 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          _iconButton(Icons.search_rounded),
+          _iconButton(Icons.search_rounded, () {}),
           const SizedBox(width: 10),
-          _iconButton(Icons.notifications_none_rounded),
+          _iconButton(Icons.notifications_none_rounded, () {
+            Navigator.pushNamed(context, '/notification');
+          }),
         ],
       ),
     );
   }
 
-  Widget _iconButton(IconData icon) {
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A1527),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFF2D2540), width: 1),
+  Widget _iconButton(IconData icon, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A1527),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: const Color(0xFF2D2540), width: 1),
+        ),
+        child: Icon(icon, color: Colors.white, size: 22),
       ),
-      child: Icon(icon, color: Colors.white, size: 22),
     );
   }
 }

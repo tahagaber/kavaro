@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../constats/app_colors.dart';
+import 'Widgets/animated_logo.dart';
+import 'Widgets/blur_circle.dart';
+import 'Widgets/branding_text.dart';
+import 'Widgets/progress_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -7,68 +12,68 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _progressAnimation;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/login');
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2500))..forward();
+
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5, curve: Curves.easeIn));
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5, curve: Curves.easeOutBack)));
+    _progressAnimation = CurvedAnimation(parent: _controller, curve: const Interval(0.5, 1.0, curve: Curves.linear));
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (mounted) Navigator.pushReplacementNamed(context, '/login');
+        });
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF05050A),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: const Color(0xFFc9a86c),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Icon(Icons.eco, color: Colors.white, size: 35),
+      backgroundColor: AppColors.backgroundDark,
+      body: Stack(
+        children: [
+          Positioned(top: -100, right: -50, child: BlurCircle(color: AppColors.primary.withOpacity(0.12), size: 300)),
+          Positioned(bottom: -50, left: -50, child: BlurCircle(color: AppColors.secondary.withOpacity(0.12), size: 250)),
+          Center(
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: ScaleTransition(
+                    scale: _scaleAnimation,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const AnimatedLogo(),
+                        const SizedBox(height: 32),
+                        const BrandingText(),
+                        const SizedBox(height: 48),
+                        ProgressBar(progress: _progressAnimation.value),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 15),
-            const Text(
-              'KAVARO',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFf5e6c8),
-                letterSpacing: 3,
-              ),
-            ),
-            Container(
-              width: 140,
-              height: 2,
-              margin: const EdgeInsets.only(top: 8),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Colors.transparent,
-                    Color(0xFF00d4aa),
-                    Colors.transparent,
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'ELEVATE YOUR REALITY',
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey,
-                letterSpacing: 2,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

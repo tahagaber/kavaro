@@ -7,6 +7,7 @@ import 'package:kavaro/screen/core/home/widgets/home_trending.dart';
 import 'package:kavaro/screen/core/home/widgets/home_featured.dart';
 import 'package:kavaro/screen/core/Market/market.dart';
 import 'package:kavaro/screen/core/Social/social_screen.dart';
+import 'package:kavaro/screen/core/profile/profile.dart';
 import 'package:kavaro/widgets/custom_right_drawer.dart';
 import 'package:kavaro/models/market_model.dart';
 
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const _HomeContent(),
     const MarketScreen(),
     const SocialScreen(),
-    const Center(child: Text('Profile')),
+    const ProfileScreen(),
   ];
 
   @override
@@ -105,7 +106,7 @@ class _HomeContentState extends State<_HomeContent> {
             ),
             const SizedBox(height: 24),
             const HomeTrendingSection(),
-            const SizedBox(height: 28),
+            const SizedBox(height: 20),
             HomeFeaturedSection(featuredProjects: MarketModel.featuredProjects),
           ],
         ),

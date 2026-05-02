@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../../../constats/app_colors.dart';
-import '../models/social_models.dart';
+import '../../../../models/social.dart';
 
 class StoryItem extends StatelessWidget {
   final StoryUser story;
+  final Color? primaryColor;
 
-  const StoryItem({super.key, required this.story});
+  const StoryItem({super.key, required this.story, this.primaryColor});
 
   @override
   Widget build(BuildContext context) {
+    final activeColor = primaryColor ?? AppColors.secondary;
     return Column(
       children: [
         Container(
@@ -18,14 +20,14 @@ class StoryItem extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(
               color: story.isActive
-                  ? AppColors.secondary
-                  : AppColors.secondary.withOpacity(0.3),
+                  ? activeColor
+                  : activeColor.withOpacity(0.3),
               width: 2,
             ),
             boxShadow: story.isActive
                 ? [
                     BoxShadow(
-                      color: AppColors.secondary.withOpacity(0.5),
+                      color: activeColor.withOpacity(0.5),
                       blurRadius: 8,
                       spreadRadius: 1,
                     ),
@@ -33,7 +35,7 @@ class StoryItem extends StatelessWidget {
                 : [],
           ),
           child: ClipOval(
-            child: Image.network(
+            child: Image.asset(
               story.imageUrl,
               fit: BoxFit.cover,
               opacity: AlwaysStoppedAnimation(story.isActive ? 1.0 : 0.6),

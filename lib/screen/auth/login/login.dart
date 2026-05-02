@@ -69,7 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/forgetPassword');
+                      },
                       child: const Text(
                         'Forgot Password?',
                         style: TextStyle(
@@ -87,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Login to Experience',
                     icon: Icons.arrow_forward,
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/onboarding');
+                      Navigator.pushReplacementNamed(context, '/home');
                     },
                   ),
 

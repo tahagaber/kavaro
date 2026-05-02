@@ -70,11 +70,7 @@ class _MarketScreenState extends State<MarketScreen> {
                         HeaderIcon(
                           icon: Icons.notifications_none,
                           onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Notifications tapped'),
-                              ),
-                            );
+                            Navigator.pushNamed(context, '/notification');
                           },
                         ),
                         const SizedBox(width: 12),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MarketModel {
-  // Asset Constants
+  // Asset Constants \\ for Home Screen
   static const String avatarUrl = 'assets/images/img1.jpg';
   static const String cyberRoninUrl = 'assets/images/img1.jpg';
   static const String vortexUrl = 'assets/images/img2.jpg';

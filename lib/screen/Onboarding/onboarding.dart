@@ -21,19 +21,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       title: 'Capture Reality',
       description:
           'Scan any object with your camera and turn it into a high-quality 3D model instantly using AI.',
-      imagePath: 'assets/images/onboarding_1.jpg',
+      imagePath: 'assets/images/on_b_6.jpg',
     ),
     OnboardingData(
       title: 'Explore 3D',
       description:
           'Discover millions of premium 3D models and digital files from top creators around the globe.',
-      imagePath: 'assets/images/onboarding_2.jpg',
+      imagePath: 'assets/images/on_b_2.jpg',
     ),
     OnboardingData(
       title: 'Bring To Life',
       description:
           'Print, animate, or integrate the 3D models directly into your projects seamlessly.',
-      imagePath: 'assets/images/onboarding_3.jpg',
+      imagePath: 'assets/images/on_b_5.jpg',
     ),
   ];
 

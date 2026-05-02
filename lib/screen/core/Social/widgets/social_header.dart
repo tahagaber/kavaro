@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import '../../../../constats/app_colors.dart';
 
 class SocialHeader extends StatelessWidget {
-  const SocialHeader({super.key});
+  final Color backgroundColor;
+  final Color borderColor;
+  final Color primaryColor;
+
+  const SocialHeader({
+    super.key,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.primaryColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.backgroundDark.withOpacity(0.85),
-        border: const Border(
-          bottom: BorderSide(color: AppColors.glassBorder, width: 1),
-        ),
+        color: backgroundColor.withOpacity(0.85),
+        border: Border(bottom: BorderSide(color: borderColor, width: 1)),
       ),
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 8,
@@ -26,15 +32,12 @@ class SocialHeader extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.secondary,
+                  color: primaryColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.all(6),
-                child: const Icon(
-                  Icons.view_in_ar_rounded,
-                  color: Colors.white,
-                  size: 24,
-                ),
+                child: const Icon(Icons.view_in_ar_rounded,
+                    color: Colors.white, size: 24),
               ),
               const SizedBox(width: 8),
               const Text(
@@ -53,14 +56,14 @@ class SocialHeader extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.search_rounded),
-                color: AppColors.textSecondary,
+                color: const Color(0xFF94A3B8),
                 onPressed: () {},
               ),
               Stack(
                 children: [
                   IconButton(
                     icon: const Icon(Icons.notifications_outlined),
-                    color: AppColors.textSecondary,
+                    color: const Color(0xFF94A3B8),
                     onPressed: () {},
                   ),
                   Positioned(
@@ -70,12 +73,9 @@ class SocialHeader extends StatelessWidget {
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: AppColors.secondary,
+                        color: primaryColor,
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.backgroundDark,
-                          width: 1.5,
-                        ),
+                        border: Border.all(color: backgroundColor, width: 1.5),
                       ),
                     ),
                   ),

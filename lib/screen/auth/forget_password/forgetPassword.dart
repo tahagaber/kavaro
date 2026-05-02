@@ -2,16 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kavaro/widgets/auth_brand_section.dart';
 import 'package:kavaro/widgets/gradient_button.dart';
-import 'package:kavaro/screen/auth/OTB/widgets/otp_inputs.dart';
+import '../../../constats/app_colors.dart';
 
-class OtbScreen extends StatefulWidget {
-  const OtbScreen({super.key});
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({super.key});
 
   @override
-  State<OtbScreen> createState() => _OtbScreenState();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
-class _OtbScreenState extends State<OtbScreen> {
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,7 @@ class _OtbScreenState extends State<OtbScreen> {
                   const SizedBox(height: 50),
 
                   const Text(
-                    'VERIFY YOUR EMAIL',
+                    'FORGOT PASSWORD?',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -48,21 +56,26 @@ class _OtbScreenState extends State<OtbScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
 
                   const Text(
-                    "We've sent a 4-digit code to your email.",
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    "Don't worry! Enter your email address to receive a verification code.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 48),
 
-                  // OTP Inputs
-                  const OtpInputs(),
+                  // Email Input
+                  _buildInputField(
+                    controller: _emailController,
+                    hint: 'Email Address',
+                    icon: Icons.email_outlined,
+                  ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 48),
 
-                  // Shadow effect under button
+                  // Submit Button
                   Stack(
                     alignment: Alignment.center,
                     children: [
@@ -73,7 +86,7 @@ class _OtbScreenState extends State<OtbScreen> {
                           borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFFc026d3).withOpacity(0.2),
+                              color: AppColors.primary.withOpacity(0.2),
                               blurRadius: 20,
                               spreadRadius: 2,
                             ),
@@ -81,13 +94,11 @@ class _OtbScreenState extends State<OtbScreen> {
                         ),
                       ),
                       GradientButton(
-                        text: 'Verify & Continue',
-                        icon: Icons.arrow_forward,
+                        text: 'Send Verification Code',
+                        icon: Icons.send_rounded,
                         onTap: () {
-                          // Get destination from arguments if available, else default to /resetPassword
-                          final args = ModalRoute.of(context)?.settings.arguments as String?;
-                          final destination = args ?? '/resetPassword';
-                          Navigator.pushReplacementNamed(context, destination);
+                          // Navigate to OTP Screen
+                          Navigator.pushNamed(context, '/otb', arguments: '/resetPassword');
                         },
                       ),
                     ],
@@ -95,53 +106,19 @@ class _OtbScreenState extends State<OtbScreen> {
 
                   const SizedBox(height: 40),
 
-                  // Resend text
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Didn't receive code? ",
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // Handle resend
-                        },
-                        child: const Text(
-                          "Resend Code",
-                          style: TextStyle(
-                            color: Color(0xFFc026d3),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  // Timer
-                  const Text(
-                    "00:59",
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
-
-                  const SizedBox(height: 50),
-
                   // Back to Login
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/login');
+                      Navigator.pop(context);
                     },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.arrow_back, color: Colors.grey, size: 16),
+                        Icon(Icons.arrow_back, color: AppColors.textSecondary, size: 16),
                         SizedBox(width: 8),
                         Text(
                           "Back to Login",
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
+                          style: TextStyle(color: AppColors.textSecondary, fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -152,6 +129,31 @@ class _OtbScreenState extends State<OtbScreen> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String hint,
+    required IconData icon,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.1)),
+      ),
+      child: TextField(
+        controller: controller,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon, color: AppColors.primary, size: 20),
+          hintText: hint,
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 14),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );

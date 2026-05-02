@@ -1,44 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../../constats/app_colors.dart';
-import '../models/social_models.dart';
+import '../../../../models/social.dart';
 
 class PostCard extends StatefulWidget {
-  final String username,
-      userRole,
-      avatarUrl,
-      imageUrl,
-      title,
-      description,
-      tags,
-      likes,
-      comments,
-      actionLabel;
-  final Color userRoleColor;
-  final bool isFollowing, isLiked, isBookmarked;
-  final double imageAspectRatio;
-  final List<PostBadge> badges;
-  final IconData actionIcon;
+  final SocialPost post;
 
-  const PostCard({
-    super.key,
-    required this.username,
-    required this.userRole,
-    required this.userRoleColor,
-    required this.avatarUrl,
-    required this.isFollowing,
-    required this.imageUrl,
-    required this.imageAspectRatio,
-    required this.badges,
-    required this.title,
-    required this.description,
-    required this.tags,
-    required this.likes,
-    required this.comments,
-    required this.isLiked,
-    required this.isBookmarked,
-    required this.actionLabel,
-    required this.actionIcon,
-  });
+  const PostCard({super.key, required this.post});
 
   @override
   State<PostCard> createState() => _PostCardState();
@@ -52,18 +19,18 @@ class _PostCardState extends State<PostCard> {
   @override
   void initState() {
     super.initState();
-    _liked = widget.isLiked;
-    _bookmarked = widget.isBookmarked;
-    _following = widget.isFollowing;
+    _liked = widget.post.isLiked;
+    _bookmarked = widget.post.isBookmarked;
+    _following = widget.post.isFollowing;
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: const Color(0xFF0D1117).withOpacity(0.9),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.glassBorder, width: 1),
+        border: Border.all(color: const Color(0x1AFFFFFF), width: 1),
       ),
       clipBehavior: Clip.hardEdge,
       child: Column(
@@ -92,8 +59,8 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
             child: ClipOval(
-              child: Image.network(
-                widget.avatarUrl,
+              child: Image.asset(
+                widget.post.avatarUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) =>
                     Container(color: AppColors.backgroundLight),
@@ -106,7 +73,7 @@ class _PostCardState extends State<PostCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.username,
+                  widget.post.username,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
@@ -114,11 +81,11 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 Text(
-                  widget.userRole.toUpperCase(),
+                  widget.post.userRole.toUpperCase(),
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w700,
-                    color: widget.userRoleColor,
+                    color: widget.post.userRoleColor,
                     letterSpacing: 1,
                   ),
                 ),
@@ -153,12 +120,12 @@ class _PostCardState extends State<PostCard> {
 
   Widget _buildImageArea() {
     return AspectRatio(
-      aspectRatio: widget.imageAspectRatio,
+      aspectRatio: widget.post.imageAspectRatio,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(
-            widget.imageUrl,
+          Image.asset(
+            widget.post.imageUrl,
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) =>
                 Container(color: AppColors.backgroundLight),
@@ -168,7 +135,7 @@ class _PostCardState extends State<PostCard> {
             left: 16,
             child: Wrap(
               spacing: 8,
-              children: widget.badges.map((b) {
+              children: widget.post.badges.map((b) {
                 return Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -201,7 +168,7 @@ class _PostCardState extends State<PostCard> {
               }).toList(),
             ),
           ),
-          if (widget.imageAspectRatio == 1.0)
+          if (widget.post.imageAspectRatio == 1.0)
             Positioned(
               bottom: 16,
               right: 16,
@@ -250,7 +217,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          widget.likes,
+                          widget.post.likes,
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
@@ -305,7 +272,7 @@ class _PostCardState extends State<PostCard> {
           ),
           const SizedBox(height: 12),
           Text(
-            widget.title,
+            widget.post.title,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w800,
@@ -322,9 +289,9 @@ class _PostCardState extends State<PostCard> {
                 height: 1.5,
               ),
               children: [
-                TextSpan(text: '${widget.description} '),
+                TextSpan(text: '${widget.post.description} '),
                 TextSpan(
-                  text: widget.tags,
+                  text: widget.post.tags,
                   style: const TextStyle(
                     color: AppColors.secondary,
                     fontWeight: FontWeight.w600,
@@ -338,9 +305,9 @@ class _PostCardState extends State<PostCard> {
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: Icon(widget.actionIcon, size: 18),
+              icon: Icon(widget.post.actionIcon, size: 18),
               label: Text(
-                widget.actionLabel,
+                widget.post.actionLabel,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 14,

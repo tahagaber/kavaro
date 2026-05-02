@@ -28,10 +28,10 @@ class HomeFeaturedSection extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GridView.builder(
+            padding: EdgeInsets.only(top: 20),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: featuredProjects.length,
@@ -73,22 +73,29 @@ class HomeFeaturedSection extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(16),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.1),
+                        width: 1,
+                      ),
                     ),
-                    child: SizedBox.expand(
-                      child: Hero(
-                        tag: 'product-${p['name']}-${p['image']}',
-                        child: Image.asset(
-                          p['image'],
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => Container(
-                            color: const Color(0xFF1A1527),
-                            child: const Icon(
-                              Icons.view_in_ar_rounded,
-                              color: Color(0xFF8B5CF6),
-                              size: 40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: SizedBox.expand(
+                        child: Hero(
+                          tag: 'product-${p['name']}-${p['image']}',
+                          child: Image.asset(
+                            p['image'],
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: const Color(0xFF1A1527),
+                              child: const Icon(
+                                Icons.view_in_ar_rounded,
+                                color: Color(0xFF8B5CF6),
+                                size: 40,
+                              ),
                             ),
                           ),
                         ),

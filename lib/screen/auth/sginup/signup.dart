@@ -105,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     text: 'Create Account',
                     icon: Icons.arrow_forward,
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/otb');
+                      Navigator.pushReplacementNamed(context, '/otb', arguments: '/onboarding');
                     },
                   ),
 

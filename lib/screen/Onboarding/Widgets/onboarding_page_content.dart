@@ -15,23 +15,23 @@ class OnboardingPageContent extends StatelessWidget {
         children: [
           // Concentric circles center
           Container(
-            width: 280,
-            height: 280,
+            width: 370,
+            height: 370,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: const Color(0xFF7F0DF2).withOpacity(0.3),
-                width: 2,
+                color: const Color(0xFF7F0DF2).withOpacity(0.2),
+                width: 1.5,
               ),
             ),
           ),
           Container(
-            width: 320,
-            height: 320,
+            width: 430,
+            height: 430,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: const Color(0xFF7F0DF2).withOpacity(0.1),
+                color: const Color(0xFF7F0DF2).withOpacity(0.05),
                 width: 1,
               ),
             ),
@@ -39,37 +39,40 @@ class OnboardingPageContent extends StatelessWidget {
 
           // Center Image with Glow
           Container(
-            width: 260,
-            height: 260,
+            width: 320,
+            height: 320,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF7F0DF2).withOpacity(0.5),
+                width: 2,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: const Color(0xFF7F0DF2).withOpacity(0.4),
-                  blurRadius: 50,
-                  spreadRadius: 5,
+                  blurRadius: 60,
+                  spreadRadius: 10,
                 ),
               ],
             ),
-            child: Image.asset(
-              data.imagePath,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0xFF0D0B14),
-                    border: Border.all(
-                      color: const Color(0xFF7F0DF2).withOpacity(0.5),
+            child: ClipOval(
+              child: Image.asset(
+                data.imagePath,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0xFF0D0B14),
                     ),
-                  ),
-                  child: const Icon(
-                    Icons.view_in_ar_rounded,
-                    color: Color(0xFF7F0DF2),
-                    size: 80,
-                  ),
-                );
-              },
+                    child: const Icon(
+                      Icons.view_in_ar_rounded,
+                      color: Color(0xFF7F0DF2),
+                      size: 80,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
