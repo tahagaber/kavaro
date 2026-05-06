@@ -5,7 +5,7 @@ import '../../../../managers/cart_manager.dart';
 class AssetCard extends StatelessWidget {
   final Map<String, dynamic> model;
 
-  const AssetCard({Key? key, required this.model}) : super(key: key);
+  const AssetCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {

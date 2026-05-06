@@ -12,7 +12,7 @@ import '../../../models/cart_item.dart';
 import '../../../models/market_model.dart';
 
 class MarketScreen extends StatefulWidget {
-  const MarketScreen({Key? key}) : super(key: key);
+  const MarketScreen({super.key});
 
   @override
   State<MarketScreen> createState() => _MarketScreenState();

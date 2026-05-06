@@ -12,15 +12,22 @@ import 'package:kavaro/widgets/custom_right_drawer.dart';
 import 'package:kavaro/models/market_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialIndex;
+  const HomeScreen({super.key, this.initialIndex = 0});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedTab = 0;
+  late int _selectedTab;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedTab = widget.initialIndex;
+  }
 
   final List<Widget> _pages = [
     const _HomeContent(),

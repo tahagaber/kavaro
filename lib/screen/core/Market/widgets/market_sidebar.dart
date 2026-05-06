@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MarketSidebar extends StatelessWidget {
-  const MarketSidebar({Key? key}) : super(key: key);
+  const MarketSidebar({super.key});
 
   @override
   Widget build(BuildContext context) {

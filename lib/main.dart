@@ -4,7 +4,6 @@ import 'package:kavaro/screen/auth/sginup/signup.dart';
 import 'package:kavaro/screen/core/home/home.dart';
 import 'package:kavaro/screen/Onboarding/onboarding.dart';
 import 'package:kavaro/screen/auth/OTB/otb_screen.dart';
-import 'package:kavaro/features/dimension_capture/scanner_screen.dart';
 import 'package:kavaro/screen/Splash/splash.dart';
 import 'package:kavaro/screen/auth/forget_password/forgetPassword.dart';
 import 'package:kavaro/screen/auth/forget_password/reset_password.dart';
@@ -35,7 +34,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) {
+          final args = ModalRoute.of(context)?.settings.arguments;
+          final int initialIndex = args is int ? args : 0;
+          return HomeScreen(initialIndex: initialIndex);
+        },
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
@@ -43,12 +46,11 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => const SplashScreen(),
         '/forgetPassword': (context) => const ForgetPasswordScreen(),
         '/resetPassword': (context) => const ResetPasswordScreen(),
-        '/market': (context) => const MarketScreen(),
-        '/social': (context) => const SocialScreen(),
+        '/market': (context) => const HomeScreen(initialIndex: 1),
+        '/social': (context) => const HomeScreen(initialIndex: 2),
         '/checkout': (context) => const CheckoutScreen(),
-        '/profile': (context) => const ProfileScreen(),
+        '/profile': (context) => const HomeScreen(initialIndex: 3),
         '/cart': (context) => const CartScreen(),
-        '/scanner': (context) => const ScannerScreen(),
         '/notification': (context) => const NotificationScreen(),
       },
     );

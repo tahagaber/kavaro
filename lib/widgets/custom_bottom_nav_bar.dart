@@ -7,10 +7,10 @@ class CustomBottomNavBar extends StatelessWidget {
   final Function(int) onItemTapped;
 
   const CustomBottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
 class _AnimatedFab extends StatefulWidget {
   final Color borderColor;
-  const _AnimatedFab({Key? key, required this.borderColor}) : super(key: key);
+  const _AnimatedFab({super.key, required this.borderColor});
 
   @override
   State<_AnimatedFab> createState() => _AnimatedFabState();

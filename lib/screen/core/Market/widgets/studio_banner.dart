@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../models/market_model.dart';
 
 class StudioBanner extends StatefulWidget {
-  const StudioBanner({Key? key}) : super(key: key);
+  const StudioBanner({super.key});
 
   @override
   State<StudioBanner> createState() => _StudioBannerState();
